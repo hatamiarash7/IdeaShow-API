@@ -3,8 +3,13 @@
     src: url('../fonts/yekan.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'sanss';
+    src: url('../fonts/sans.ttf') format('truetype');
+}
+
 .my_font {
-    font-family: yekan, sans-serif;
+    font-family: sanss, sans-serif;
 }
 
 .wrapper {

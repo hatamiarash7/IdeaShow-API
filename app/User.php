@@ -20,4 +20,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function ideas()
+    {
+        return $this->hasMany(Idea::class, 'author');
+    }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
 }

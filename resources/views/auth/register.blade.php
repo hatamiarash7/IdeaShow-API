@@ -14,7 +14,7 @@
                     <input id="name" type="text" style="text-align: center" placeholder="نام و نام خانوادگی"
                            class="my_font form-control"
                            name="name"
-                           value="{{ old('name') }}" required autofocus>
+                           value="{{ old('name') }}" required>
 
                     @if ($errors->has('name'))
                         <span class="help-block">

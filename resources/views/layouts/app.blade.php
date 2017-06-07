@@ -33,7 +33,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand my_font" href="{{ url('/') }}">ایده شو</a>
+                <a class="navbar-brand my_font" href="{{ url('/') }}"><h4>ایده شو</h4></a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -46,11 +46,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a class="my_font" href="{{ route('login') }}">ورود</a></li>
-                        <li><a class="my_font" href="{{ route('register') }}">ثبت نام</a></li>
+                        <li><a class="my_font" href="{{ route('login') }}"><h4>ورود</h4></a></li>
+                        <li><a class="my_font" href="{{ route('register') }}"><h4>ثبت نام</h4></a></li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="#" class="dropdown-toggle my_font" data-toggle="dropdown" role="button"
                                aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
