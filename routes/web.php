@@ -11,6 +11,16 @@
 |
 */
 
+Route::auth();
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return View::make('home');
+})->name('home');
+
+Route::get('/home', function () {
+    return View::make('home');
+})->name('home');
+
+Route::get('/profile', function () {
+    return View::make('profile');
+})->name('profile');

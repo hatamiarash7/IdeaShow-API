@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2017 - All Rights Reserved - Arash Hatami
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,8 +19,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('phone')->unique();
             $table->string('email')->unique();
+            $table->string('image')->nullable();
+            $table->string('phone')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
