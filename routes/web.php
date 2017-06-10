@@ -13,14 +13,31 @@
 
 Route::auth();
 
-Route::get('/', function () {
-    return View::make('home');
-})->name('home');
+Route::get('/', 'IdeaController@index')->name('home');
 
-Route::get('/home', function () {
-    return View::make('home');
-})->name('home');
+Route::get('/home', 'IdeaController@index')->name('home');
 
 Route::get('/profile', function () {
     return View::make('profile');
 })->name('profile');
+
+Route::group(['middleware' => ['auth']], function () {
+    // show new post form
+    Route::get('new-idea', 'IdeaController@create');
+    // save new post
+    Route::post('new-idea', 'IdeaController@store');
+    // edit post form
+    Route::get('edit/{id}', 'IdeaController@edit');
+    // update post
+    Route::post('update', 'IdeaController@update');
+    // delete post
+    Route::get('delete/{id}', 'IdeaController@destroy');
+});
+
+//users profile
+Route::get('user/{id}', 'UserController@profile')->where('id', '[0-9]+');
+// display list of posts
+Route::get('user/{id}/posts', 'UserController@user_posts')->where('id', '[0-9]+');
+// display single post
+Route::get('/{slug}',['as' => 'post', 'uses' => 'IdeaController@show'])->where('slug', '[A-Za-z0-9-_]+');
+

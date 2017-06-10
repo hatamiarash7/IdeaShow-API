@@ -1,3 +1,41 @@
+@extends('layouts.app')
+@section('title')
+    {{ $title }}
+@endsection
+@section('content')
+    @if ( !$ideas->count() )
+        There is no post till now. Login and write a new post now!!!
+    @else
+        <div class="">
+            @foreach( $ideas as $idea )
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h3><a href="{{ url('/'.$idea->slug) }}">{{ $idea->title }}</a>
+                            @if(!Auth::guest() && ($idea->author_id == Auth::user()->id || Auth::user()->is_admin()))
+                                @if($idea->active == '1')
+                                    <button class="btn" style="float: right"><a href="{{ url('edit/'.$idea->slug)}}">Edit
+                                            Post</a></button>
+                                @else
+                                    <button class="btn" style="float: right"><a href="{{ url('edit/'.$idea->slug)}}">Edit
+                                            Draft</a></button>
+                                @endif
+                            @endif
+                        </h3>
+                        <p>{{ $idea->created_at->format('M d,Y \a\t h:i a') }} By <a
+                                    href="{{ url('/user/'.$idea->author_id)}}">{{ $idea->author->name }}</a></p>
+                    </div>
+                    <div class="list-group-item">
+                        <article>
+                            {!! str_limit($idea->body, $limit = 1500, $end = '....... <a href='.url("/".$idea->slug).'>Read More</a>') !!}
+                        </article>
+                    </div>
+                </div>
+            @endforeach
+            {!! $ideas->render() !!}
+        </div>
+    @endif
+@endsection
+
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
@@ -18,15 +56,17 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/profile.js') }}"></script>
+    <!--[if lt IE 9]>
+    <script src="{{ asset('/js/respond.min.css') }}"></script>
+    <script src="{{ asset('/js/html5shiv.min.css') }}"></script>
+    <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
         <div class="navbar-header">
-
-            <!-- Collapsed Hamburger -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#app-navbar-collapse">
+                    data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -39,8 +79,10 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;
+            <ul class="nav navbar-nav my_font">
+                <li>
+                    <a href="{{ url('/') }}">خانه</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -51,7 +93,7 @@
                     <li><a class="my_font" href="{{ route('register') }}">ثبت نام</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        <a href="#" class="dropdown-toggle my_font" data-toggle="dropdown" role="button"
                            aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>

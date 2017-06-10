@@ -29,4 +29,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Follow::class, 'follower_id');
     }
+
+    public function can_post()
+    {
+        $role = $this->role;
+        if (($role == 'user' || $role == 'admin') && $this->active) {
+            return true;
+        }
+        return false;
+    }
+
+    public function is_admin()
+    {
+        $role = $this->role;
+        if ($role == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
 }

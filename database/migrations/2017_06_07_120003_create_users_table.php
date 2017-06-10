@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->string('phone')->unique();
             $table->string('password');
+            $table->boolean('active')->default(true);
+            $table->enum('role', ['admin', 'user', 'guest'])->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

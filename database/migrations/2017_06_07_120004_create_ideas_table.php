@@ -15,15 +15,18 @@ class CreateIdeasTable extends Migration
     {
         Schema::create('ideas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author')->unsigned();
-            $table->string('title', 50);
+            $table->integer('user_id')->unsigned();
+            $table->string('user_name');
+            $table->string('title', 50)->unique();
             $table->text('body');
             $table->integer('like')->default(0);
             $table->integer('dislike')->default(0);
             $table->integer('reported')->default(0);
             $table->text('tags')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->foreign('author')
+            $table->integer('active')->default(1);
+            $table->string('slug')->unique();
+            $table->timestamps();
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade')
