@@ -26,6 +26,8 @@ class CreateIdeasTable extends Migration
             $table->integer('active')->default(1);
             $table->string('slug')->unique();
             $table->timestamps();
+            $table->string('date')->nullable();
+            $table->string('time')->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

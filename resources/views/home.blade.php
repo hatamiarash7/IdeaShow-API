@@ -3,30 +3,21 @@
     {{ $title }}
 @endsection
 @section('content')
-    @if ( !$ideas->count() )
-        There is no post till now. Login and write a new post now!!!
-    @else
+    @if ( !$ideas->count() )<p class="my_font">ایده ای ثبت نشده است</p>@else
         <div class="">
             @foreach( $ideas as $idea )
                 <div class="list-group">
                     <div class="list-group-item">
-                        <h3><a href="{{ url('/'.$idea->slug) }}">{{ $idea->title }}</a>
-                            @if(!Auth::guest() && ($idea->author_id == Auth::user()->id || Auth::user()->is_admin()))
-                                @if($idea->active == '1')
-                                    <button class="btn" style="float: right"><a href="{{ url('edit/'.$idea->slug)}}">Edit
-                                            Post</a></button>
-                                @else
-                                    <button class="btn" style="float: right"><a href="{{ url('edit/'.$idea->slug)}}">Edit
-                                            Draft</a></button>
-                                @endif
-                            @endif
-                        </h3>
-                        <p>{{ $idea->created_at->format('M d,Y \a\t h:i a') }} By <a
+                        <h3><a class="my_font" style="direction: rtl;"
+                               href="{{ url('/'.$idea->slug) }}">{{ $idea->title }}</a></h3>
+                        <p class="my_font" style="direction: rtl;">منتشر شده در تاریخ <span
+                                    style="color: firebrick">{{ $idea->date }}</span> ساعت
+                            <span style="color: firebrick">{{ $idea->time }}</span> توسط <a
                                     href="{{ url('/user/'.$idea->user_id)}}">{{ $idea->user_name }}</a></p>
                     </div>
-                    <div class="list-group-item">
+                    <div class="list-group-item my_font" style="direction: rtl;">
                         <article>
-                            {!! str_limit($idea->body, $limit = 1500, $end = '....... <a href='.url("/".$idea->slug).'>Read More</a>') !!}
+                            {!! str_limit($idea->body, $limit = 800, $end = '....... <a href='.url("/".$idea->slug).'>Read More</a>') !!}
                         </article>
                     </div>
                 </div>

@@ -23,9 +23,8 @@ class IdeaController extends Controller
     {
         //fetch 5 posts from database which are active and latest
         $ideas = Idea::where('active', 1)->orderBy('created_at', 'desc')->paginate(5);
-        $title = 'Latest Posts';
+        $title = 'آخرین ایده ها';
         return view('home', compact('ideas', 'title'));
-        //return view('home')->withTitle('arash')->withIdeas($ideas);
     }
 
     public function create(Request $request)
@@ -34,7 +33,7 @@ class IdeaController extends Controller
         if ($request->user()->can_post())
             return view('ideas.create');
         else
-            return redirect('/')->withErrors('You have not sufficient permissions for writing post');
+            return redirect('/')->withErrors('دسترسی غیرمجاز');
     }
 
 
@@ -44,10 +43,12 @@ class IdeaController extends Controller
 
         $idea->title = $request->get('title');
         $idea->body = $request->get('body');
-        $idea->slug = str_slug($idea->title);
+        $idea->slug = uniqid('', false);
         $idea->user_id = Auth::user()->id;
         $idea->user_name = Auth::user()->name;
-        $message = 'Idea published successfully';
+        $idea->date = $this->getDate($this->getCurrentTime());
+        $idea->time = $this->getTime($this->getCurrentTime());
+        $message = 'ایده منتشر شد';
 
         $idea->save();
         return redirect('edit/' . $idea->slug)->withMessage($message);
@@ -58,7 +59,7 @@ class IdeaController extends Controller
         $idea = Idea::where('slug', $slug)->first();
 
         if (!$idea)
-            return redirect('/')->withErrors('Requested page not found');
+            return redirect('/')->withErrors('صفحه مورد نظر یافت نشد');
 
         return view('ideas.show')->withIdea($idea);
     }
@@ -68,7 +69,7 @@ class IdeaController extends Controller
         $idea = Idea::where('slug', $slug)->first();
         if ($idea && ($request->user()->id == $idea->user_id || Auth::user()->is_admin()))
             return view('ideas.edit')->with('idea', $idea);
-        return redirect('/')->withErrors('you have not sufficient permissions');
+        return redirect('/')->withErrors('دسترسی غیرمجاز');
     }
 
     public function update(Request $request)
@@ -77,20 +78,54 @@ class IdeaController extends Controller
         $idea = Idea::find($idea_id);
         if ($idea && ($idea->user_id == Auth::user()->id || Auth::user()->is_admin())) {
             $title = $request->input('title');
-            $slug = str_slug($title);
-            $duplicate = Idea::where('slug', $slug)->first();
-            if ($duplicate) {
-                if ($duplicate->id != $idea_id)
-                    return redirect('edit/' . $idea->slug)->withErrors('Title already exists.')->withInput();
-                else
-                    $idea->slug = $slug;
-            }
             $idea->title = $title;
             $idea->body = $request->input('body');
             $idea->save();
-            return redirect($idea->slug)->withMessage('Post updated successfully');
+            return redirect($idea->slug)->withMessage('ایده به روزرسانی شد');
         } else {
-            return redirect('/')->withErrors('you have not sufficient permissions');
+            return redirect('/')->withErrors('دسترسی غیرمجاز');
         }
     }
+
+    public function destroy($id)
+    {
+        $idea = Idea::find($id);
+        if ($idea && ($idea->user_id == Auth::user()->id || Auth::user()->is_admin())) {
+            $idea->delete();
+            $data['message'] = 'ایده حذف شد';
+        } else {
+            $data['errors'] = 'دسترسی غیرمجاز';
+        }
+        return redirect('/')->with($data);
+    }
+
+    protected function getCurrentTime()
+    {
+        $now = date("Y-m-d", time());
+        $time = date("H:i:s", time());
+        return $now . ' ' . $time;
+    }
+
+    protected function getDate($date)
+    {
+        $now = explode(" ", $date)[0];
+        $time = explode(" ", $date)[1];
+        list($year, $month, $day) = explode('-', $now);
+        list($hour, $minute, $second) = explode(':', $time);
+        $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+        $date = jdate("Y/m/d", $timestamp);
+        return $date;
+    }
+
+    protected function getTime($date)
+    {
+        $now = explode(" ", $date)[0];
+        $time = explode(" ", $date)[1];
+        list($year, $month, $day) = explode('-', $now);
+        list($hour, $minute, $second) = explode(':', $time);
+        $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+        $date = jdate("H:i", $timestamp);
+        return $date;
+    }
+
 }

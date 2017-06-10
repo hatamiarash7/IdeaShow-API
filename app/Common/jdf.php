@@ -660,4 +660,3 @@ function jalali_to_gregorian($jy, $jm, $jd, $mod = '')
     }
     return ($mod === '') ? array($gy, $gm, $gd) : $gy . $mod . $gm . $mod . $gd;
 }
-
