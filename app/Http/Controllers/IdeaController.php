@@ -6,6 +6,7 @@
 namespace App\Http\Controllers;
 
 use App\Idea;
+use App\Like;
 use App\Services\v1\IdeaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,6 +98,68 @@ class IdeaController extends Controller
             $data['errors'] = 'دسترسی غیرمجاز';
         }
         return redirect('/')->with($data);
+    }
+
+    public function like(Request $request)
+    {
+
+        $idea_id = $request->input('idea_id');
+        $idea = Idea::find($idea_id);
+        $idea->like = $idea->like + 1;
+        $idea->save();
+
+        $like = Like::where([
+            'user_id' => $request->get('user_id'),
+            'idea_id' => $request->get('idea_id'),
+            'type' => 0
+        ])->first();
+        if (!$like) {
+            $like = new Like();
+            $like->user_id = $request->get('user_id');
+            $like->idea_id = $request->get('idea_id');
+            $like->type = 0;
+            $like->save();
+        }
+
+        return "committed";
+    }
+
+    public function dislike(Request $request)
+    {
+
+        $idea_id = $request->input('idea_id');
+        $idea = Idea::find($idea_id);
+        $idea->dislike = $idea->dislike + 1;
+        $idea->save();
+
+        $like = Like::where([
+            'user_id' => $request->get('user_id'),
+            'idea_id' => $request->get('idea_id'),
+            'type' => 0
+        ])->first();
+        if ($like) {
+            $like->delete();
+
+            $idea_id = $request->input('idea_id');
+            $idea = Idea::find($idea_id);
+            $idea->like = $idea->like - 1;
+            $idea->save();
+        }
+
+        $dislike = Like::where([
+            'user_id' => $request->get('user_id'),
+            'idea_id' => $request->get('idea_id'),
+            'type' => 1
+        ])->first();
+        if (!$dislike) {
+            $dislike = new Like();
+            $dislike->user_id = $request->get('user_id');
+            $dislike->idea_id = $request->get('idea_id');
+            $dislike->type = 1;
+            $dislike->save();
+        }
+
+        return "committed";
     }
 
     protected function getCurrentTime()

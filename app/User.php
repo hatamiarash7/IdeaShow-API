@@ -30,6 +30,11 @@ class User extends Authenticatable
         return $this->hasMany(Follow::class, 'follower_id');
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'user_id');
+    }
+
     public function can_post()
     {
         $role = $this->role;

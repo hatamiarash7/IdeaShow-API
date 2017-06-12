@@ -18,8 +18,9 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{ asset('js/mine.js') }}"></script>
     <!--[if lt IE 9]>
-    <script src="{{ asset('/js/respond.min.css') }}"></script>
+    <script src="{{ asset('/js/respond.min.css') }}"></script> <div id="like1-bs3"></div>
     <script src="{{ asset('/js/html5shiv.min.css') }}"></script>
     <![endif]-->
 </head>
@@ -83,32 +84,42 @@
 </nav>
 <div class="container">
     @if (Session::has('message'))
-        <div class="flash alert-info">
-            <h3 class="panel-body my_font">{{ Session::get('message') }}</h3>
+        <div class="alert alert-success-alt alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                ×
+            </button>
+            <span class="my_font">
+            {{ Session::get('message') }}
+            </span>
         </div>
     @endif
     @if ($errors->any())
-        <div class='flash alert-danger'>
-            <ul class="panel-body my_font">
-                @foreach ( $errors->all() as $error )
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        @foreach ( $errors->all() as $error )
+            <div class="alert alert-alert-alt alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×
+                </button>
+                <span class="my_font">
+                    {{ $error }}
+            </span>
+            </div>
+        @endforeach
     @endif
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
+            <div class="panel panel-default panel-google-plus">
                 <div class="panel-heading">
                     <h1 class="my_font">@yield('title')</h1>
                     @yield('title-meta')
                 </div>
                 <div class="panel-body">
+                    <br>
                     @yield('content')
                 </div>
             </div>
         </div>
     </div>
+
     <br>
     {{--<div class="row">
         <div class="flex-center">
@@ -119,7 +130,7 @@
 
 @yield('list')
 
-<div id="particles"></div>
+{{--<div id="particles"></div>--}}
 
 <svg id="svg-source" height="0" version="1.1"
      xmlns="http://www.w3.org/2000/svg" style="position:absolute; margin-left: -100%"

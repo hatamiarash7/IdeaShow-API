@@ -9,7 +9,7 @@
 }
 
 .my_font {
-    font-family: sanss, sans-serif;
+    font-family: "sanss", sans-serif;
 }
 
 .wrapper {
@@ -43,7 +43,7 @@
 }
 
 input[type="text"] {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -136,10 +136,7 @@ btn 3d
     top: -6px;
     border: 0;
     transition: all 40ms linear;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin: 10px 2px;
 }
 
 .btn3d:active:focus,
@@ -238,6 +235,286 @@ btn 3d
     background-color: #bb39d7;
 }
 
+/* custom alerts */
+
+.alert-purple {
+    border-color: #694D9F;
+    background: #694D9F;
+    color: #fff;
+}
+
+.alert-info-alt {
+    border-color: #B4E1E4;
+    background: #81c7e1;
+    color: #fff;
+}
+
+.alert-danger-alt {
+    border-color: #B63E5A;
+    background: #E26868;
+    color: #fff;
+}
+
+.alert-warning-alt {
+    border-color: #F3F3EB;
+    background: #E9CEAC;
+    color: #fff;
+}
+
+.alert-success-alt {
+    border-color: #19B99A;
+    background: #20A286;
+    color: #fff;
+}
+
+.glyphicon {
+    margin-right: 10px;
+}
+
+.alert a {
+    color: gold;
+}
+
+/*   google plus panel */
+
+.panel-google-plus {
+    position: relative;
+    border-radius: 0;
+    border: 1px solid rgb(216, 216, 216);
+    font-family: "sanss", 'Roboto', sans-serif;
+}
+
+.panel-google-plus > .dropdown {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.panel-google-plus > .dropdown > .dropdown-menu {
+    left: initial;
+    right: 0;
+    border-radius: 2px;
+}
+
+.panel-google-plus > .panel-google-plus-tags {
+    position: absolute;
+    top: 35px;
+    right: -3px;
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul > li {
+    display: block;
+    right: 0;
+    width: 0;
+    padding: 5px 0 5px 0;
+    background-color: rgb(255, 255, 255);
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul > li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    border-right: 3px solid red;
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul:hover > li,
+.panel-google-plus > .panel-google-plus-tags > ul > li:first-child {
+    padding: 5px 15px 5px 10px;
+    width: auto;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul:hover > li {
+    background-color: rgb(255, 255, 255);
+}
+
+.panel-google-plus > .panel-google-plus-tags > ul > li:hover {
+    background-color: red;
+    color: rgb(255, 255, 255);
+}
+
+.panel-google-plus > .panel-heading,
+.panel-google-plus > .panel-footer {
+    background-color: rgb(255, 255, 255);
+    border-width: 0;
+}
+
+.panel-google-plus > .panel-heading {
+    margin-top: 0;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 20px;
+}
+
+.panel-google-plus > .panel-heading > img {
+    margin-right: 15px;
+}
+
+.panel-google-plus > .panel-heading > h5 {
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.panel-google-plus > .panel-body {
+    padding-top: 10px;
+}
+
+.panel-google-plus > .panel-body > .panel-google-plus-image {
+    display: block;
+    text-align: center;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.panel-google-plus > .panel-body > .panel-google-plus-image > img {
+    max-width: 100%;
+}
+
+.panel-google-plus > .panel-footer {
+    /*font-size: 14px;
+    font-weight: 700;*/
+    margin-top: 10px;
+    min-height: 54px;
+}
+
+.panel-google-plus > .panel-footer > .btn {
+    float: left;
+    margin-right: 8px;
+}
+
+.panel-google-plus > .panel-footer i.glyphicon {
+    display: inline;
+    font-size: 1.125em;
+    cursor: pointer;
+}
+
+.panel-google-plus > .panel-footer i.glyphicon-thumbs-up {
+    color: #1abc9c;
+}
+
+.panel-google-plus > .panel-footer i.glyphicon-thumbs-down {
+    color: #e74c3c;
+    padding-left: 5px;
+}
+
+.panel-google-plus > .panel-footer > .input-placeholder {
+    display: block;
+    margin-left: 98px;
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 6px 7px;
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0 1px 0 0;
+}
+
+.panel-google-plus .btn {
+    border-radius: 3px;
+}
+
+.panel-google-plus .btn-default {
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0 1px 0 1px;
+}
+
+.panel-google-plus .btn-default:hover,
+.panel-google-plus .btn-default:focus,
+.panel-google-plus .btn-default:active {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(225, 225, 225);
+}
+
+/* SnackBar  */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #1abc9c;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+}
+
+/* use in JavaScript */
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+/* small customs */
+
 ul.dropdown-menu > li {
     text-align: center;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: red !important;
 }

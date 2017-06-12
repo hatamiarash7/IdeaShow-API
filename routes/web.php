@@ -39,5 +39,8 @@ Route::get('user/{id}', 'UserController@profile')->where('id', '[0-9]+');
 // display list of posts
 Route::get('user/{id}/ideas', 'UserController@user_posts')->where('id', '[0-9]+');
 // display single post
-Route::get('/{slug}',['as' => 'post', 'uses' => 'IdeaController@show'])->where('slug', '[A-Za-z0-9-_]+');
+Route::get('/{slug}', ['as' => 'post', 'uses' => 'IdeaController@show'])->where('slug', '[A-Za-z0-9-_]+');
+
+Route::post('like', 'IdeaController@like');
+Route::post('dislike', 'IdeaController@dislike');
 
